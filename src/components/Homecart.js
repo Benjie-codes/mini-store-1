@@ -32,7 +32,7 @@ const Homecart = () => {
                     ))}
                 </div>
             </div>
-                <a href="#" className="mt-1 px-6 py-5 bg-black text-white hover:bg-white hover:text-black hover:border-2 hover:border-black  transition duration-500 ease-in-out">View All</a>
+                <a href="/404" className="mt-1 px-6 py-5 bg-black text-white hover:bg-white hover:text-black hover:border-2 hover:border-black  transition duration-500 ease-in-out">View All</a>
         </section>
     </div>
   )

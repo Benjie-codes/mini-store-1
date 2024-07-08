@@ -5,7 +5,7 @@ import { FaCheck } from 'react-icons/fa';
 import ProgressBar from '../components/Progressbar';
 
 function Checkout() {
-    const [currentStep, setCurrentStep] = useState(2);
+    const [currentStep] = useState(2);
 
   return (
     <div>
@@ -17,8 +17,8 @@ function Checkout() {
                     <FaCheck className='text-4xl my-auto'/>
                     <p className='ml-2 my-auto'>Complete your order and earn 45 points for a discount on a future purchase</p>
                 </p>
-                <p>Returning Customer? <a href="#" className="text-black font-bold">Click here to login</a></p>
-                <p>Have a coupon? <a href="#" className="text-black font-bold">Click here to enter your code</a></p>
+                <p>Returning Customer? <a href="/404" className="text-black font-bold">Click here to login</a></p>
+                <p>Have a coupon? <a href="/404" className="text-black font-bold">Click here to enter your code</a></p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
