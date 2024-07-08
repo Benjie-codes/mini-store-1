@@ -12,24 +12,24 @@ const Footer = () => {
           <div className="w-full md:w-auto text-left">
             <h3 className="font-bold mb-7">EXPLORE</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:underline">Sell art on Art World</a></li>
-              <li><a href="#" className="hover:underline">Our Story</a></li>
-              <li><a href="#" className="hover:underline">Our Initiatives</a></li>
-              <li><a href="#" className="hover:underline">Product Features</a></li>
-              <li><a href="#" className="hover:underline">Collectors Showcase</a></li>
+              <li><a href="/404" className="hover:underline">Sell art on Art World</a></li>
+              <li><a href="/404" className="hover:underline">Our Story</a></li>
+              <li><a href="/404" className="hover:underline">Our Initiatives</a></li>
+              <li><a href="/404" className="hover:underline">Product Features</a></li>
+              <li><a href="/404" className="hover:underline">Collectors Showcase</a></li>
             </ul>
           </div>
           <div className="w-full md:w-auto text-left">
             <h3 className="font-bold mb-7">SUPPORT</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:underline">Get Inspired</a></li>
-              <li><a href="#" className="hover:underline">FAQs</a></li>
-              <li><a href="#" className="hover:underline">Get in Touch</a></li>
-              <li><a href="#" className="hover:underline">Terms for Creators</a></li>
-              <li><a href="#" className="hover:underline">Return Policy</a></li>
-              <li><a href="#" className="hover:underline">Privacy Policy</a></li>
-              <li><a href="#" className="hover:underline">Terms of Service</a></li>
-              <li><a href="#" className="hover:underline">Refund Policy</a></li>
+              <li><a href="/404" className="hover:underline">Get Inspired</a></li>
+              <li><a href="/404" className="hover:underline">FAQs</a></li>
+              <li><a href="/404" className="hover:underline">Get in Touch</a></li>
+              <li><a href="/404" className="hover:underline">Terms for Creators</a></li>
+              <li><a href="/404" className="hover:underline">Return Policy</a></li>
+              <li><a href="/404" className="hover:underline">Privacy Policy</a></li>
+              <li><a href="/404" className="hover:underline">Terms of Service</a></li>
+              <li><a href="/404" className="hover:underline">Refund Policy</a></li>
             </ul>
           </div>
           <div className="w-full md:w-auto text-left">
@@ -46,9 +46,9 @@ const Footer = () => {
             <div className="space-y-2 my-4">
               <p>CONNECT WITH US ON ALL OUR SOCIAL MEDIA</p>
               <div className="social-icons flex justify-center space-x-7">
-                <FaTwitter className="text-4xl" />
-                <FaInstagram className="text-4xl" />
-                <FaFacebook className="text-4xl" />
+                < a href='/404'><FaTwitter className="text-4xl" /></a>
+                < a href='/404'><FaInstagram className="text-4xl" /></a>
+                < a href='/404'><FaFacebook className="text-4xl" /></a>
               </div>
             </div>
             

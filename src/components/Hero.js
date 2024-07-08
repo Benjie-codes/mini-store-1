@@ -10,7 +10,7 @@ const Hero = () => {
             <p className="text-xl font-bold text-white">NEW</p>
             <h1 className="text-4xl md:text-5xl font-bold text-white mt-4">New Artworks this Season</h1>
             <p className="text-white mt-4 max-w-lg mx-auto">Bring joy and creativity into your space with artworks from new and emerging artists such as Jexways, Ghalavanqche and more!</p>
-            <a href="#" className="mt-8 px-6 py-3 bg-black text-white font-bold rounded hover:bg-white hover:text-black transition duration-500 ease-in-out">Discover New Arts</a>
+            <a href="/404" className="mt-8 px-6 py-3 bg-black text-white text-xl font-bold hover:bg-white hover:text-black transition duration-500 ease-in-out">Discover New Arts</a>
           </div>
         </div>
       </main>
