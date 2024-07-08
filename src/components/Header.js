@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from '../assets/logo.jpg'; // Ensure you have the logo.png in the src/assets folder
-import cartIcon from '../assets/cart-shopping-solid.svg'; // Ensure you have the cart-icon.png in the src/assets folder
-import searchIcon from '../assets/search-solid.svg'; // Ensure you have the search-icon.png in the src/assets folder
+import React, { useState } from 'react';
+import { FaBars, FaTimes, FaShoppingCart, FaSearch } from 'react-icons/fa';
+import logo from '../assets/logo.jpg';
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <header className="flex flex-wrap items-center justify-between p-4 shadow-md">
-      <div className="logo">
-        <img src={logo} alt="Art World" className="h-10" />
-      </div>
-      <nav className="flex-1 hidden md:flex justify-center space-x-8">
-        <ul className="flex justify-center space-x-4">
-          <li><a href="#" className="text-gray-800 font-bold">Shop</a></li>
-          <li><a href="#" className="text-gray-800 font-bold">Artist</a></li>
-          <li><a href="#" className="text-gray-800 font-bold">Collection</a></li>
-          <li><a href="#" className="text-gray-800 font-bold">Stories</a></li>
-          <li><a href="#" className="text-gray-800 font-bold">Sell on Art World</a></li>
-        </ul>
-      </nav>
-      <div className="flex space-x-4 mt-4 md:mt-0">
-        <a href="#"><img src={cartIcon} alt="Cart" className="h-6" /></a>
-        <a href="#"><img src={searchIcon} alt="Search" className="h-6" /></a>
+    <header className="bg-white shadow-md overflow-hidden">
+      <div className="container mx-auto p-4 flex justify-between items-center">
+          <button
+            className="text-2xl md:hidden ml-4"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        <div className="flex items-center">
+          {!isOpen && (
+            <img src={logo} alt="Art World" className="h-8 md:h-12" />
+          )}
+        </div>
+        <nav className={`md:flex md:items-center ${isOpen ? 'block' : 'hidden'} w-full md:w-auto`}>
+          <ul className="flex flex-col md:flex-row md:space-x-6 md:items-center w-full md:w-auto">
+            <li className="mt-2 md:mt-0">
+              <a href="#" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Shop</a>
+            </li>
+            <li className="mt-2 md:mt-0">
+              <a href="#" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Artist</a>
+            </li>
+            <li className="mt-2 md:mt-0">
+              <a href="#" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Collection</a>
+            </li>
+            <li className="mt-2 md:mt-0">
+              <a href="#" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Stories</a>
+            </li>
+            <li className="mt-2 md:mt-0">
+              <a href="#" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Sell on Art World</a>
+            </li>
+          </ul>
+        </nav>
+        {!isOpen && (
+          <div className="flex items-center space-x-4">
+            <FaSearch className="text-xl cursor-pointer" />
+            <FaShoppingCart className="text-xl cursor-pointer" />
+          </div>
+        )}
       </div>
     </header>
   );
