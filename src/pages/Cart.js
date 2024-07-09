@@ -69,7 +69,7 @@ const Cart = () => {
                         <button onClick={() => incrementQuantity(2)} className="text-lg px-2">+</button>
                     </div>
                     <div>
-                        <p className='font-bold'>₦{cartItems[0].price * cartItems[0].quantity}</p>
+                        <p className='font-bold'>₦{cartItems[1].price * cartItems[1].quantity}</p>
                     </div>
 
                 </div>
