@@ -103,7 +103,7 @@ function Checkout() {
                         <input type="text" className="w-full p-2 border" />
                     </div>
                     </div>
-                    <a href="/404"><button className="mt-4 w-full bg-black text-white py-2 hover:bg-white hover:text-black transition duration-500 ease-in-out">PLACE ORDER</button></a>
+                    <a href="/404"><button className="mt-4 w-full bg-black text-white py-2 hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black ">PLACE ORDER</button></a>
                 </div>
                 </div>
             </div>

@@ -39,7 +39,7 @@ const Cart = () => {
                         <FaArrowRight className="h-5 w-5 text-black hover:cursor-pointer" />
                     </div>
                     
-                    <a href="/checkout"><button className="mt-4 bg-black text-white px-4 py-2  hover:bg-white hover:text-black transition duration-500 ease-in-out">CHECKOUT</button></a>
+                    <a href="/checkout"><button className="mt-4 bg-black text-white px-4 py-2  hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black">CHECKOUT</button></a>
                 </div>
  
             </div>
