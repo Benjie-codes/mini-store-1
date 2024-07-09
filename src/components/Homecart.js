@@ -39,13 +39,12 @@ const Homecart = () => {
                     {artworks.map((art, index) => (
                         <div key={index} className="flex flex-col items-center w-90 p-4 m-4 bg-white shadow-md rounded">
                             <img src={art.image} alt={art.title} className="mb-4 rounded" />
-                            <div className="grid grid-cols-3 items-center">
+                            <div className="w-full flex justify-between items-center">
                               <div className="text-left">
                                 <h3 className="text-4xl font-bold mb-2">{art.title}</h3>
                                 <p>{art.artist}</p>
                                 <p>{art.price}</p>
                               </div>
-                              <div></div>
                               <div className=''>
                                 <button onClick={notify} className="mt-4 bg-black text-white px-6 py-4  hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black ">Add To Cart</button>
                               </div>
