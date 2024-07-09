@@ -22,7 +22,7 @@ const Navbar = () => {
                     </button>
                 <div className="flex items-center">
                     {!isOpen && (
-                    <img src={logo} alt="Art World" className="h-8 md:h-12" />
+                    <img src={logo} alt="Art World" className="h-13 md:h-12" />
                     )}
                 </div>
                 <nav className={`md:flex md:items-center ${isOpen ? 'block' : 'hidden'} w-full md:w-auto`}>

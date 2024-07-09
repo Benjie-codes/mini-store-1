@@ -18,7 +18,16 @@ const artworks = [
   { image: itemImage6, title: 'Sunrise', artist: 'Emmanuel Akibah', price: '#45,000 - #135,000'}, //chill designer
 ];
 
-const notify = () => toast('Product added to cart!');
+const notify = () => toast.success('Product added to cart!', {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+  });;
 
 const Homecart = () => {
   return (
@@ -47,7 +56,7 @@ const Homecart = () => {
             </div>
                 <a href="/404" className="mt-1 px-6 py-5 bg-black text-white hover:bg-white hover:text-black hover:border-2 hover:border-black  transition duration-500 ease-in-out">View All</a>
         </section>
-        <ToastContainer />
+        <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light"/>
     </div>
   )
 }

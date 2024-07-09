@@ -4,8 +4,12 @@ import { FaGooglePay } from "react-icons/fa6";
 import { FaCheck } from 'react-icons/fa';
 import ProgressBar from '../components/Progressbar';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Checkout() {
     const [currentStep] = useState(2);
+    const order = () => toast('Thanks for shopping with us!');
 
   return (
     <div>
@@ -62,53 +66,53 @@ function Checkout() {
                 </div>
 
                 <div>
-                <div className="bg-gray-100 p-4 rounded">
-                    <h3 className="text-lg font-semibold mb-4">YOUR ORDER</h3>
-                    <div className="border-b pb-4 mb-4">
-                    <p>Blossom</p>
-                    <p>Emmanuel Abikah</p>
-                    <p>₦45,000 - ₦135,000</p>
+                    <div className="bg-gray-100 p-4 rounded">
+                        <h3 className="text-lg font-semibold mb-4">YOUR ORDER</h3>
+                        <div className="border-b pb-4 mb-4">
+                        <p>Blossom</p>
+                        <p>Emmanuel Abikah</p>
+                        <p>₦45,000 - ₦135,000</p>
+                        </div>
+                        <div className="border-b pb-4 mb-4">
+                        <p>SUBTOTAL</p>
+                        <p>₦130,000</p>
+                        </div>
+                        <div className="border-b pb-4 mb-4">
+                        <p>Shipping</p>
+                        <p>Enter your address to view shipping option</p>
+                        </div>
+                        <div className="border-b pb-4 mb-4">
+                        <p>Tax</p>
+                        <p>₦0.00</p>
+                        </div>
+                        <div className="border-b pb-4 mb-4">
+                        <p>Total</p>
+                        <p>₦130,000</p>
+                        </div>
+                        <div className="flex items-center mb-4">
+                        <RiVisaLine alt="Visa" className="text-6xl mr-2" />
+                        <FaGooglePay alt="Google Pay" className="text-6xl" />
+                        </div>
+                        <div className="space-y-4">
+                        <div>
+                            <label className="block">Card Number</label>
+                            <input type="text" className="w-full p-2 border" />
+                        </div>
+                        <div>
+                            <label className="block">Expiry Date</label>
+                            <input type="text" className="w-full p-2 border" />
+                        </div>
+                        <div>
+                            <label className="block">CVC</label>
+                            <input type="text" className="w-full p-2 border" />
+                        </div>
+                        </div>
+                        <button onClick={order} className="mt-4 w-full bg-black text-white py-2 hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black ">PLACE ORDER</button>
                     </div>
-                    <div className="border-b pb-4 mb-4">
-                    <p>SUBTOTAL</p>
-                    <p>₦130,000</p>
-                    </div>
-                    <div className="border-b pb-4 mb-4">
-                    <p>Shipping</p>
-                    <p>Enter your address to view shipping option</p>
-                    </div>
-                    <div className="border-b pb-4 mb-4">
-                    <p>Tax</p>
-                    <p>₦0.00</p>
-                    </div>
-                    <div className="border-b pb-4 mb-4">
-                    <p>Total</p>
-                    <p>₦130,000</p>
-                    </div>
-                    <div className="flex items-center mb-4">
-                    <RiVisaLine alt="Visa" className="text-6xl mr-2" />
-                    <FaGooglePay alt="Google Pay" className="text-6xl" />
-                    </div>
-                    <div className="space-y-4">
-                    <div>
-                        <label className="block">Card Number</label>
-                        <input type="text" className="w-full p-2 border" />
-                    </div>
-                    <div>
-                        <label className="block">Expiry Date</label>
-                        <input type="text" className="w-full p-2 border" />
-                    </div>
-                    <div>
-                        <label className="block">CVC</label>
-                        <input type="text" className="w-full p-2 border" />
-                    </div>
-                    </div>
-                    <a href="/404"><button className="mt-4 w-full bg-black text-white py-2 hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black ">PLACE ORDER</button></a>
-                </div>
                 </div>
             </div>
         </div>
-
+        <ToastContainer />
     </div>
   );
 }

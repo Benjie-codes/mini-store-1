@@ -1,5 +1,4 @@
-import React from 'react';
-import CartItem from '../components/Cartitems';
+import React, { useState } from 'react';
 import Cartimage from '../assets/item5.webp';
 import Cartimage2 from '../assets/item6.webp';
 import { FaArrowRight } from "react-icons/fa";
@@ -7,13 +6,73 @@ import { RiVisaLine } from "react-icons/ri";
 import { FaGooglePay } from "react-icons/fa6";
 
 const Cart = () => {
+
+    const [cartItems, setCartItems] = useState([
+        { id: 1, name: 'Sunrise', price: 45000, quantity: 1 },
+        { id: 2, name: 'Blossom', price: 85000, quantity: 1 },
+      ]);
+    
+      const incrementQuantity = (id) => {
+        setCartItems(cartItems.map(item =>
+          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        ));
+      };
+    
+      const decrementQuantity = (id) => {
+        setCartItems(cartItems.map(item =>
+          item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+        ));
+      };
+    
+      const calculateSubtotal = () => {
+        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+      };
+
+    //   const total = () => {
+    //     return cartItems.reduce((item) => item.price * item.quantity);
+    //   }
+
   return (
     <div>
         <div className='md:mx-20 mx-5'>
             <h2 className="text-3xl font-semibold mt-3 mb-4 text-center">CARTS</h2>
-            <div className="space-y-4">
-                <CartItem title="Sunrise" price="45,000" quantity="1" total="45,000" imageUrl={Cartimage} />
-                <CartItem title="Blossom" price="85,000" quantity="1" total="85,000" imageUrl={Cartimage2} />
+            <div className="p-4">
+                <div className="flex justify-between items-center mb-4">
+                    <div className="flex items-center">
+                        <img src={Cartimage} alt="Sunrise" className="w-32 rounded mr-4" />
+                        <div>
+                        <h2 className="text-xl font-semibold">Awelewa</h2>
+                        <p className="text-gray-600">₦{(45000).toLocaleString()}</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center">
+                        <button onClick={() => decrementQuantity(1)} className="text-lg px-2">-</button>
+                        <span className="text-lg px-2">{cartItems[0].quantity}</span>
+                        <button onClick={() => incrementQuantity(1)} className="text-lg px-2">+</button>
+                    </div>
+                    <div>
+                        <p className='font-bold'>₦{cartItems[0].price * cartItems[0].quantity}</p>
+                    </div>
+                </div>
+
+                <div className="flex justify-between items-center mb-4">
+                    <div className="flex items-center">
+                        <img src={Cartimage2} alt="Blossom" className="w-32 rounded mr-4" />
+                        <div>
+                        <h2 className="text-xl font-semibold">Sunrise</h2>
+                        <p className="text-gray-600">₦{(45000).toLocaleString()}</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center">
+                        <button onClick={() => decrementQuantity(2)} className="text-lg px-2">-</button>
+                        <span className="text-lg px-2">{cartItems[1].quantity}</span>
+                        <button onClick={() => incrementQuantity(2)} className="text-lg px-2">+</button>
+                    </div>
+                    <div>
+                        <p className='font-bold'>₦{cartItems[0].price * cartItems[0].quantity}</p>
+                    </div>
+
+                </div>
             </div>
 
             <div className="flex gap-2 md:gap-0 justify-between mt-10 ">
@@ -24,16 +83,16 @@ const Cart = () => {
 
                 {/* <div></div> */}
 
-                <div className="justify-between ">
+                <div className="">
                     <div className="flex justify-between">
-                        <div className='text-lg font-bold'>
+                        <div className='text-lg font-semibold'>
                             SUBTOTAL:
                         </div>
                         <div className='text-lg font-bold'>
-                            ₦150,000
+                            <p className="text-xl font-bold">₦{calculateSubtotal().toLocaleString()}</p>
                         </div>
                     </div>
-                    <p>Taxes and shiping calculated at checkout</p>
+                    <p className='text-xs'>Taxes and shiping calculated at checkout</p>
                     <div className="flex items-center border-b border-black py-2">
                         <input type="text" placeholder="Add promo code" className="flex-grow outline-none placeholder-black"/>
                         <FaArrowRight className="h-5 w-5 text-black hover:cursor-pointer" />
