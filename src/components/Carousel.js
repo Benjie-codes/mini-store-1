@@ -1,6 +1,6 @@
 import React from 'react';
 import { IoStar } from "react-icons/io5";
-import profileImage from '../assets/profile.jpg'; // Make sure to import your profile image
+import profileImage from '../assets/profile.jpg';
 
 function Carousel() {
   return (

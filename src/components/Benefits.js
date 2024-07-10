@@ -33,7 +33,6 @@ const Benefits = () => {
             <div className="hero bg-cover bg-center h-screen relative" style={{ backgroundImage: `url(${heroImg})` }}>
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black bg-opacity-50 p-4">
                 <h1 className="text-6xl md:text-7xl md:mx-20 md:px-20 font-bold text-white mt-4">Enjoy wall arts by culturally diverse artists.</h1>
-                {/* <p className="text-white mt-4 max-w-lg mx-auto">Bring joy and creativity into your space with artworks from new and emerging artists such as Jexways, Ghalavanqche and more!</p> */}
                 <a href="/404" className="mt-8 px-6 py-3 bg-white text-black hover:bg-black hover:text-white transition duration-500 ease-in-out">BUY ART WORKS</a>
             </div>
             </div>
