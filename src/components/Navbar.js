@@ -24,6 +24,10 @@ const Navbar = () => {
         setInputText(e.target.value);
     };
 
+    const clearSearch = () => {
+        setInputText('')
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (inputText.trim() === '') {
@@ -99,13 +103,15 @@ const Navbar = () => {
                     {isSearchOpen && (
                         <div className="transition-all duration-300 ease-in-out w-full">
                             <form onSubmit={handleSubmit} action="" className='md:px-0 px-5 mb-5 gap-3 flex justify-center'>
-                                <input
-                                    type="text"
-                                    value={inputText} onChange={handleInputChange}
-                                    className="w-5/6 p-2 border border-black"
-                                    placeholder="Enter Keywords..."
-                                />
-                                <button type='submit'  className='bg-black text-white py-2 px-4'>SEARCH</button>
+                                <div className='w-5/6 px-2 border border-black flex justify-between'>
+                                    <input
+                                        type="text"
+                                        value={inputText} onChange={handleInputChange}
+                                        className="p-2 w-full focus:outline-none"
+                                        placeholder="Enter Keywords..."
+                                    /><FaTimes onClick={clearSearch} className='my-auto cursor-pointer'/>
+                                </div>
+                                <button type='submit'  className='bg-black text-white py-2 px-4 '>SEARCH</button>
                             </form>
                         </div>
                     )}
