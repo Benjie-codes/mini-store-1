@@ -1,20 +1,62 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes, FaShoppingCart, FaSearch } from 'react-icons/fa';
 import logo from '../assets/logo.jpg';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
-      };
+    };
+
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+    const toggleSearch = () => {
+        setIsSearchOpen(!isSearchOpen);
+    };
+
+
+    const [inputText, setInputText] = useState('');
+    
+    const handleInputChange = (e) => {
+        setInputText(e.target.value);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (inputText.trim() === '') {
+            toast.warn("Enter a keyword!!", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+        } else {
+            toast.success("Oops!, Nothing to search...", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+          });
+        }
+    };
 
     return (
         <div>
             <header className="bg-white overflow-hidden">
                 <div className="container mx-auto p-8 md:p-6 flex justify-between items-center">
                     <button
-                    className="text-2xl md:hidden ml-4"
+                    className="text-2xl md:hidden"
                     onClick={toggleMenu}
                     aria-label="Toggle menu"
                     >
@@ -46,12 +88,30 @@ const Navbar = () => {
                 </nav>
                 {!isOpen && (
                     <div className="flex items-center space-x-8">
-                        <FaSearch className="text-2xl cursor-pointer" />
+                        <button onClick={toggleSearch} className="text-black focus:outline-none">
+                            <FaSearch className="w-6 h-6" />
+                        </button>
                         <a href='/cart'><FaShoppingCart className="text-2xl cursor-pointer" /></a>
                     </div>
                 )}
                 </div>
+                <div className='w-full items-center'>
+                    {isSearchOpen && (
+                        <div className="transition-all duration-300 ease-in-out w-full">
+                            <form onSubmit={handleSubmit} action="" className='md:px-0 px-5 mb-5 gap-3 flex justify-center'>
+                                <input
+                                    type="text"
+                                    value={inputText} onChange={handleInputChange}
+                                    className="w-5/6 p-2 border border-black"
+                                    placeholder="Enter Keywords..."
+                                />
+                                <button type='submit'  className='bg-black text-white py-2 px-4'>SEARCH</button>
+                            </form>
+                        </div>
+                    )}
+                </div>
             </header>
+            <ToastContainer />
         </div>
     )
 }
