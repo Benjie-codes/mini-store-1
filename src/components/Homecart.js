@@ -67,7 +67,7 @@ const Homecart = () => {
         <h2 className="text-4xl md:text-5xl font-bold mb-8">
           Discover New Arts
         </h2>
-        <div className="flex flex-wrap justify-center mb-5">
+        <div className="flex flex-wrap justify-center mb-10">
           <div className="grid md:grid-cols-2 grid-col">
             {artworks.map((art, index) => (
               <div
@@ -96,7 +96,7 @@ const Homecart = () => {
         </div>
         <a
           href="/404"
-          className="mt-1 px-6 py-5 bg-black text-white hover:bg-white hover:text-black hover:border-2 hover:border-black  transition duration-500 ease-in-out"
+          className="px-10 py-5 bg-black text-white hover:bg-white hover:text-black hover:border-2 hover:border-black  transition duration-500 ease-in-out"
         >
           View All
         </a>
