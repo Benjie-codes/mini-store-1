@@ -3,7 +3,6 @@ import { FaBars, FaTimes, FaShoppingCart, FaSearch } from 'react-icons/fa';
 import logo from '../assets/logo.jpg';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Products from '../pages/Products';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);

@@ -11,7 +11,7 @@ import { CartContext } from "../context/cartContext";
 const Cart = () => {
   const { cart, removeFromCart, clearCart, incrementQuantity, decrementQuantity } = useContext(CartContext);
   const [total, setTotal] = useState(0);
-  const [totalQuantity, setTotalQuantity] = useState(0);
+  // const [totalQuantity, setTotalQuantity] = useState(0);
 
   useEffect(() => {
     const calculateTotal = () => {
@@ -50,21 +50,21 @@ const Cart = () => {
                     <div className="mx-auto">
                       <button
                         onClick={() => decrementQuantity(product.id)}
-                        className="bg-gray-300 text-black p-2 rounded mr-2" disabled={product.quantity <= 1}
+                        className="bg-gray-300 text-black p-2 rounded mr-2"
                       >
                         -
                       </button>
-                      <span>{product.quantity}</span>
+                      <span>{product.available_quantity}</span>
                       <button
                         onClick={() => incrementQuantity(product.id)}
-                        className="bg-gray-300 text-black p-2 rounded ml-2"  disabled={product.quantity >= product.available_quantity}
+                        className="bg-gray-300 text-black p-2 rounded ml-2"
                       >
                         +
                       </button>
                     </div>
-                    <div className="">
-                      <p className="flex justify-end text-2xl font-bold">#{product?.current_price[0]?.["NGN"]}</p>
-                      <div className="flex justify-end">
+                    <div className="co">
+                      <p className="text-2xl font-bold">#{product?.current_price[0]?.["NGN"]}</p>
+                      <div className="align-right">
                         <button
                           onClick={() => removeFromCart(product.id)}
                           className="bg-red-500 text-white p-2 rounded mt-2"

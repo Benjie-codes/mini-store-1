@@ -9,6 +9,9 @@ const Products = () => {
   const [error, setError] = useState(null);
   const { addToCart } = React.useContext(CartContext);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -36,6 +39,19 @@ const Products = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  const handleClickNext = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handleClickPrev = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const indexOfLastProduct = currentPage * itemsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+
   const notify = () => {
     toast.success("Product added to cart", {
       position: "top-center",
@@ -50,7 +66,7 @@ const Products = () => {
   };
 
   const handleMultipleActions = () => {
-    addToCart(products);
+    addToCart(products[0]);
     notify();
   };
 
@@ -62,7 +78,7 @@ const Products = () => {
         </h2>
         <div className="flex flex-wrap justify-center mb-10">
           <div className="grid md:grid-cols-3 grid-col gap-10 p-6">
-            {Array.isArray(products) ? products.map(product => (
+            {Array.isArray(products) ? currentProducts.map(product => (
               <div key={product.id} className="border p-4 rounded">
                 {product.photos && product.photos.url ? (
                   <img src={`https://api.timbu.cloud/images/${product.photos.url}`} alt={product.name} className="w-2 mb-4 rounded" />
@@ -72,7 +88,7 @@ const Products = () => {
                   <p>No image available</p>
                 )}
                 <div className='flex justify-between'>
-                  <h2 className="text-sm font-bold text-left w-1/2">{product.name}</h2>
+                  <h2 className="text-xl font-bold text-left w-1/2">{product.name}</h2>
                   <div className='text-right'>
                     <p className="text-lg font-bold">#{product?.current_price[0]?.["NGN"]?.[0]}</p>
                     <button onClick={handleMultipleActions} className="mt-4 bg-black text-white px-4 py-2  hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black ">Add To Cart</button>
@@ -82,6 +98,22 @@ const Products = () => {
                 {/* <p>Quantity: {product.available_quantity}</p> */}
               </div>
             )) : <p>No products available</p>}
+          </div>
+          <div className="flex justify-between mt-4">
+            <button 
+              onClick={handleClickPrev} 
+              className="bg-black text-white p-2 rounded"
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <button 
+              onClick={handleClickNext} 
+              className="bg-black text-white p-2 rounded"
+              disabled={indexOfLastProduct >= products.length}
+            >
+              Next
+            </button>
           </div>
         </div>
       </section>
