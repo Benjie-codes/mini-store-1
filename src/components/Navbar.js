@@ -3,6 +3,7 @@ import { FaBars, FaTimes, FaShoppingCart, FaSearch } from 'react-icons/fa';
 import logo from '../assets/logo.jpg';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Products from '../pages/Products';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -80,7 +81,7 @@ const Navbar = () => {
                         <a href="/404" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Stories</a>
                     </li>
                     <li className="mt-2 md:mt-0">
-                        <a href="/404" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Collection</a>
+                        <a href="/products-page" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Products</a>
                     </li>
                     <li className="mt-2 md:mt-0">
                         <a href="/404" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Shop</a>

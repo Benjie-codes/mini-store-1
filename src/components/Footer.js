@@ -35,8 +35,8 @@ const Footer = () => {
           <div className="w-full md:w-auto text-left">
             <h3 className="font-bold mb-7">For promos & giveaways</h3>
             {/* <p className="mb-4">Subscribe to get updates on new artworks and special offers.</p> */}
-            <form className="flex justify-self-end border-2 border-white rounded-lg">
-                <input type="email" placeholder="Enter your email here:" className="py-2 pl-3 pr-10 text-left rounded-lg border-black bg-black text-white" />
+            <form className="flex justify-self-end border border-white rounded-lg">
+                <input type="email" placeholder="Enter your email here:" className="focus:outline-none py-2 pl-3 pr-10 text-left rounded-lg border-black bg-black text-white" />
                 {/* <button type="submit" className="p-2 bg-black text-white rounded-r">Subscribe</button> */}
             </form>
             <div className="space-y-2 my-4">

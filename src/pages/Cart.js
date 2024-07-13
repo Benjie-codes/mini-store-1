@@ -1,118 +1,95 @@
-import React, { useState } from "react";
-import Cartimage from "../assets/item5.webp";
-import Cartimage2 from "../assets/item6.webp";
+import React, { useState, useEffect } from "react";
+// import Cartimage from "../assets/item5.webp";
+// import Cartimage2 from "../assets/item6.webp";
 import { FaArrowRight } from "react-icons/fa";
 import { RiVisaLine } from "react-icons/ri";
 import { FaGooglePay } from "react-icons/fa6";
+import {useContext} from 'react';
+import { CartContext } from "../context/cartContext";
+
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Sunrise", price: 45000, quantity: 1 },
-    { id: 2, name: "Blossom", price: 45000, quantity: 1 },
-  ]);
+  const { cart, removeFromCart, clearCart, incrementQuantity, decrementQuantity } = useContext(CartContext);
+  const [total, setTotal] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
 
-  const incrementQuantity = (id) => {
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
-  };
-
-  const decrementQuantity = (id) => {
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
-  };
-
-  const calculateSubtotal = () => {
-    return cartItems.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
-  };
-
-  //   const total = () => {
-  //     return cartItems.reduce((item) => item.price * item.quantity);
-  //   }
+  useEffect(() => {
+    const calculateTotal = () => {
+      const totalSum = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      setTotal(totalSum);
+    };
+  
+    calculateTotal();
+  }, [cart]);
 
   return (
     <div>
       <div className="md:mx-20 mx-5">
         <h2 className="text-3xl font-semibold mt-3 mb-4 text-center">CARTS</h2>
         <div className="p-4">
-          <div className="flex justify-between items-center mb-4">
-            <div className="flex items-center">
-              <img
-                src={Cartimage}
-                alt="Sunrise"
-                className="w-32 rounded mr-4"
-              />
-              <div>
-                <h2 className="text-xl font-semibold">Awelewa</h2>
-                <p className="text-black">₦{(45000).toLocaleString()}</p>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <button
-                onClick={() => decrementQuantity(1)}
-                className="text-lg px-2"
-              >
-                -
-              </button>
-              <span className="text-lg px-2">{cartItems[0].quantity}</span>
-              <button
-                onClick={() => incrementQuantity(1)}
-                className="text-lg px-2"
-              >
-                +
-              </button>
-            </div>
+          {cart.length === 0 ? (
+          <p>No items in the cart</p>
+          ) : (
             <div>
-              <p className="font-bold">
-                ₦{cartItems[0].price * cartItems[0].quantity}
-              </p>
+            <div className="">
+              {cart.map((product, index) => (
+                <div key={index} className="flex p-4 rounded items-center">
+                  {product.photos && product.photos.url ? (
+                    <img src={`https://api.timbu.cloud/images/${product.photos.url}`} alt={product.name} className="w-2 rounded" />
+                  ) : product.photos && product.photos[0] && product.photos[0].url ? (
+                    <img src={`https://api.timbu.cloud/images/${product.photos[0].url}`} alt={product.name} className="w-40 rounded" />
+                  ) : (
+                    <p>No image available</p>
+                  )}
+                  <div className=" grid-cols-3 grid ">
+                    <div className="pl-4">
+                      <h2 className="text-xl font-bold">{product.name}</h2>
+                      <p>{product.description}</p>
+                      {/* <p>Available Quantity: {product.available_quantity}</p> */}
+                    </div>
+                    <div className="mx-auto">
+                      <button
+                        onClick={() => decrementQuantity(product.id)}
+                        className="bg-gray-300 text-black p-2 rounded mr-2" disabled={product.quantity <= 1}
+                      >
+                        -
+                      </button>
+                      <span>{product.quantity}</span>
+                      <button
+                        onClick={() => incrementQuantity(product.id)}
+                        className="bg-gray-300 text-black p-2 rounded ml-2"  disabled={product.quantity >= product.available_quantity}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div className="">
+                      <p className="flex justify-end text-2xl font-bold">#{product?.current_price[0]?.["NGN"]}</p>
+                      <div className="flex justify-end">
+                        <button
+                          onClick={() => removeFromCart(product.id)}
+                          className="bg-red-500 text-white p-2 rounded mt-2"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              ))}
+              
             </div>
-          </div>
-
-          <div className="flex justify-between items-center mb-4">
-            <div className="flex items-center">
-              <img
-                src={Cartimage2}
-                alt="Blossom"
-                className="w-32 rounded mr-4"
-              />
-              <div>
-                <h2 className="text-xl font-semibold">Sunrise</h2>
-                <p className="text-black">₦{(45000).toLocaleString()}</p>
-              </div>
-            </div>
-            <div className="flex items-center">
+            <div className="flex justify-end">
               <button
-                onClick={() => decrementQuantity(2)}
-                className="text-lg px-2"
+                onClick={clearCart}
+                className="bg-red-500 text-white p-2 rounded mt-4 flex justify-end"
               >
-                -
-              </button>
-              <span className="text-lg px-2">{cartItems[1].quantity}</span>
-              <button
-                onClick={() => incrementQuantity(2)}
-                className="text-lg px-2"
-              >
-                +
+                Clear Cart
               </button>
             </div>
-            <div>
-              <p className="font-bold">
-                ₦{cartItems[1].price * cartItems[1].quantity}
-              </p>
-            </div>
+            
           </div>
-        </div>
+          )}
 
         <div className="flex gap-2 md:gap-0 justify-between mt-10 ">
           <div className="">
@@ -127,7 +104,7 @@ const Cart = () => {
               <div className="text-lg font-semibold">SUBTOTAL:</div>
               <div className="text-lg font-bold">
                 <p className="text-xl font-bold">
-                  ₦{calculateSubtotal().toLocaleString()}
+                  ₦ {total.toFixed(2)}
                 </p>
               </div>
             </div>
@@ -159,6 +136,7 @@ const Cart = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

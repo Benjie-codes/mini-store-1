@@ -95,7 +95,7 @@ const Homecart = () => {
           </div>
         </div>
         <a
-          href="/404"
+          href="/products-page"
           className="px-10 py-5 bg-black text-white hover:bg-white hover:text-black hover:border-2 hover:border-black  transition duration-500 ease-in-out"
         >
           View All
