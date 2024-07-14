@@ -80,7 +80,7 @@ const Products = () => {
         <div className="flex flex-wrap justify-center mb-10">
           <div className="grid md:grid-cols-3 grid-cols-2 gap-10 p-6">
             {Array.isArray(products) ? currentProducts.map(product => (
-              <div key={product.id} className="border p-4 rounded">
+              <div key={product.id} className=" rounded">
                 {product.photos && product.photos.url ? (
                   <img src={`https://api.timbu.cloud/images/${product.photos.url}`} alt={product.name} className="w-2 mb-4 rounded" />
                 ) : product.photos && product.photos[0] && product.photos[0].url ? (
@@ -89,7 +89,7 @@ const Products = () => {
                   <p>No image available</p>
                 )}
                 <div className='flex justify-between'>
-                  <h2 className="text-xl font-bold text-left w-1/2">{product.name}</h2>
+                  <h2 className="text-sm md:text-xl font-bold text-left w-1/2">{product.name}</h2>
                   <div className='text-right'>
                     <p className="text-lg font-bold">#{product?.current_price[0]?.["NGN"]?.[0]}</p>
                     <button onClick={handleMultipleActions} className="mt-4 bg-black text-white px-4 py-2  hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black ">Add To Cart</button>

@@ -5,29 +5,33 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Error from "./pages/Error";
-import Products from "./pages/Products";
+import ProductList from "./pages/ProductList";
 import { CartProvider } from "./context/cartContext";
+import { MantineProvider } from '@mantine/core';
 
 function App() {
   return (
     <div>
-      <Router>
-        <div className="App">
-          <Navbar />
-          <div className="content">
-            <CartProvider>
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/cart" component={Cart} />
-                <Route path="/checkout" component={Checkout} />
-                <Route path="/404" component={Error} />
-                <Route path="/products-page" component={Products} />
-              </Switch>
-            </CartProvider>
+      <MantineProvider>
+        <Router>
+          <div className="App">
+            <Navbar />
+            <div className="content">
+              <CartProvider>
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/cart" component={Cart} />
+                  <Route path="/checkout" component={Checkout} />
+                  <Route path="/404" component={Error} />
+                  <Route path="/products-page" component={ProductList} />
+                </Switch>
+              </CartProvider>
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-      </Router>
+        </Router>
+      </MantineProvider>
+      
     </div>
   );
 }

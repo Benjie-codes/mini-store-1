@@ -5,22 +5,43 @@ import { FaArrowRight } from "react-icons/fa";
 import { RiVisaLine } from "react-icons/ri";
 import { FaGooglePay } from "react-icons/fa6";
 import {useContext} from 'react';
-import { CartContext } from "../context/cartContext";
+import { useCart } from "../context/cartContext";
+import { Button, Group, Container, Text } from '@mantine/core';
 
 
 const Cart = () => {
-  const { cart, removeFromCart, clearCart, incrementQuantity, decrementQuantity } = useContext(CartContext);
-  const [total, setTotal] = useState(0);
+  // const { cart, removeFromCart, clearCart, incrementQuantity, decrementQuantity } = useContext(useCart);
+  // const [total, setTotal] = useState(0);
   // const [totalQuantity, setTotalQuantity] = useState(0);
 
-  useEffect(() => {
-    const calculateTotal = () => {
-      const totalSum = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      setTotal(totalSum);
-    };
+  const { cart, dispatch } = useCart();
+
+  const incrementQuantity = (id, maxQuantity) => {
+    dispatch({ type: 'INCREMENT', id, maxQuantity });
+  };
+
+  const decrementQuantity = (id) => {
+    dispatch({ type: 'DECREMENT', id });
+  };
+
+  const deleteItem = (id) => {
+    dispatch({ type: 'DELETE', id });
+  };
+
+  const clearCart = () => {
+    dispatch({ type: 'CLEAR' });
+  };
+
+  const total = cart.reduce((acc, product) => acc + product.current_price[0].USD[0] * product.quantity, 0)
+  ;
+  // useEffect(() => {
+  //   const calculateTotal = () => {
+  //     const totalSum = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  //     setTotal(totalSum);
+  //   };
   
-    calculateTotal();
-  }, [cart]);
+  //   calculateTotal();
+  // }, [cart]);
 
   return (
     <div>
@@ -66,7 +87,7 @@ const Cart = () => {
                       <p className="text-2xl font-bold flex justify-end">#{product?.current_price[0]?.["NGN"]}</p>
                       <div className="flex justify-end">
                         <button
-                          onClick={() => removeFromCart(product.id)}
+                          onClick={() => deleteItem(product.id)}
                           className="bg-red-500 text-white p-2 rounded mt-2"
                         >
                           Remove
