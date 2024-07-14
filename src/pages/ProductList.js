@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { CartContext } from '../context/cartContext';
+import React, { useContext, useState, useEffect } from 'react';
 import { Card, Image, Text, Group, Container, Title, Badge, Button } from '@mantine/core';
 import Loader from '../components/Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { useCart } from '../context/cartContext';
 
 const fetchProducts = async ({ organization_id, reverse_sort, page, size, Appid, Apikey }) => {
     const url = new URL('https://timbu-get-all-products.reavdev.workers.dev/');
@@ -29,7 +29,7 @@ const ProductList = () => {
     const [isEmpty, setIsEmpty] = useState(false);
     const [isError, setIsError] = useState(false);
     const [page, setPage] = useState(1);
-    const { dispatch } = useCart();
+    const { cartItems, addToCart } = useContext(CartContext)
 
     useEffect(() => {
         const params = {
@@ -62,10 +62,6 @@ const ProductList = () => {
     if (isError) return <div>Error fetching products</div>;
     if (isEmpty) return <div>No products found</div>;
 
-    const addToCart = (product) => {
-        dispatch({ type: 'ADD_TO_CART', product });
-    };
-
     const notify = () => {
         toast.success("Product added to cart", {
           position: "top-center",
@@ -79,10 +75,10 @@ const ProductList = () => {
         });
     };
     
-    // const handleMultipleActions = () => {
-    //     addToCart(products);
-    //     notify();
-    // };
+    const handleMultipleActions = () => {
+        addToCart(products);
+        notify();
+    };
 
     return (
         <Container>
@@ -99,13 +95,13 @@ const ProductList = () => {
                                         <Image src={`https://api.timbu.cloud/images/${product?.photos[0]?.url}`} height={160} alt={product.name} />
                                     </Card.Section>
                                     <Group className='flex justify-between'>
-                                        <Text className='text-l text-left md:text-xl w-2/3'>{product.name}</Text>
-                                        <Badge className='font-bold text-l md:text-xl'>
+                                        <Text className='text-l text-left md:text-base w-2/3'>{product.name}</Text>
+                                        <Badge className='font-bold text-l md:text-xl text-gray-500'>
                                             #{product?.current_price[0]?.["NGN"]?.[0]}
                                         </Badge>
                                     </Group>
-                                    <div className='flex justify-end'>
-                                        <button onClick={() => addToCart(product)} className="mt-4 bg-black text-white px-4 py-2  hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black ">Add To Cart</button>
+                                    <div className='flex justify-center'>
+                                        <button onClick={() => addToCart(product)} className="mt-4 w-full bg-black text-white px-4 py-2  hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black ">Add To Cart</button>
                                     </div>
                                     
                                     {/* <Text size="sm">{product?.description}</Text> */}

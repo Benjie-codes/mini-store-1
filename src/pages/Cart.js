@@ -1,59 +1,26 @@
-import React, { useState, useEffect } from "react";
-// import Cartimage from "../assets/item5.webp";
-// import Cartimage2 from "../assets/item6.webp";
+import React, { useContext, useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { RiVisaLine } from "react-icons/ri";
 import { FaGooglePay } from "react-icons/fa6";
-import {useContext} from 'react';
-import { useCart } from "../context/cartContext";
-import { Button, Group, Container, Text } from '@mantine/core';
+import { CartContext } from "../context/cartContext";
 
 
 const Cart = () => {
-  // const { cart, removeFromCart, clearCart, incrementQuantity, decrementQuantity } = useContext(useCart);
-  // const [total, setTotal] = useState(0);
-  // const [totalQuantity, setTotalQuantity] = useState(0);
+  const { cartItems, addToCart, removeFromCart, clearCart, deleteItem, tPrice, getCartTotal } = useContext(CartContext)
 
-  const { cart, dispatch } = useCart();
-
-  const incrementQuantity = (id, maxQuantity) => {
-    dispatch({ type: 'INCREMENT', id, maxQuantity });
-  };
-
-  const decrementQuantity = (id) => {
-    dispatch({ type: 'DECREMENT', id });
-  };
-
-  const deleteItem = (id) => {
-    dispatch({ type: 'DELETE', id });
-  };
-
-  const clearCart = () => {
-    dispatch({ type: 'CLEAR' });
-  };
-
-  const total = cart.reduce((acc, product) => acc + product.current_price[0].USD[0] * product.quantity, 0)
-  ;
-  // useEffect(() => {
-  //   const calculateTotal = () => {
-  //     const totalSum = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  //     setTotal(totalSum);
-  //   };
-  
-  //   calculateTotal();
-  // }, [cart]);
+  // console.log((cartItems.current_price[0]?.["NGN"] * cartItems.quantity).toFixed(2))
 
   return (
     <div>
       <div className="md:mx-20 mx-5">
         <h2 className="text-3xl font-semibold mt-3 mb-4 text-center">CARTS</h2>
         <div className="p-4">
-          {cart.length === 0 ? (
+          {cartItems.length === 0 ? (
           <p>No items in the cart</p>
           ) : (
             <div>
             <div className="">
-              {cart.map((product, index) => (
+              {cartItems.map((product, index) => (
                 <div key={index} className="flex p-4 rounded items-center">
                   {product.photos && product.photos.url ? (
                     <img src={`https://api.timbu.cloud/images/${product.photos.url}`} alt={product.name} className="w-2 rounded" />
@@ -66,28 +33,33 @@ const Cart = () => {
                     <div className="pl-4">
                       <h2 className="text-xl font-bold">{product.name}</h2>
                       <p>{product.description}</p>
-                      {/* <p>Available Quantity: {product.available_quantity}</p> */}
                     </div>
                     <div className="mx-auto">
                       <button
-                        onClick={() => decrementQuantity(product.id)}
+                        onClick={() => {
+                          removeFromCart(product)
+                        }}
                         className="bg-gray-300 text-black p-2 rounded mr-2"
                       >
                         -
                       </button>
-                      <span>{product.available_quantity}</span>
+                      <span>{product.quantity}</span>
                       <button
-                        onClick={() => incrementQuantity(product.id)}
+                        onClick={() => {
+                          addToCart(product)
+                        }}
                         className="bg-gray-300 text-black p-2 rounded ml-2"
                       >
                         +
                       </button>
                     </div>
                     <div className="">
-                      <p className="text-2xl font-bold flex justify-end">#{product?.current_price[0]?.["NGN"]}</p>
+                      <p className="text-2xl font-bold flex justify-end">#{tPrice(product)}</p>
                       <div className="flex justify-end">
                         <button
-                          onClick={() => deleteItem(product.id)}
+                          onClick={() => {
+                            deleteItem(product.id)
+                          }}
                           className="bg-red-500 text-white p-2 rounded mt-2"
                         >
                           Remove
@@ -102,7 +74,9 @@ const Cart = () => {
             </div>
             <div className="flex justify-end">
               <button
-                onClick={clearCart}
+                onClick={() => {
+                  clearCart()
+                }}
                 className="bg-red-500 text-white p-2 rounded mt-4 flex justify-end"
               >
                 Clear Cart
@@ -125,7 +99,7 @@ const Cart = () => {
               <div className="text-lg font-semibold">SUBTOTAL:</div>
               <div className="text-lg font-bold">
                 <p className="text-xl font-bold">
-                  ₦ {total.toFixed(2)}
+                  ₦ {getCartTotal()}
                 </p>
               </div>
             </div>

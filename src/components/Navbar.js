@@ -80,7 +80,7 @@ const Navbar = () => {
                         <a href="/404" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Stories</a>
                     </li>
                     <li className="mt-2 md:mt-0">
-                        <a href="/products-page" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Products</a>
+                        <a href="/products" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Products</a>
                     </li>
                     <li className="mt-2 md:mt-0">
                         <a href="/404" className="block py-2 md:py-0 text-center md:text-left hover:border-b-2 border-black">Shop</a>

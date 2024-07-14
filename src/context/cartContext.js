@@ -1,50 +1,94 @@
-import React, { createContext, useReducer, useContext } from 'react';
+import { createContext, useState, useEffect } from 'react'
 
-const CartContext = createContext();
-
-const cartReducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD_TO_CART':
-      const itemIndex = state.findIndex((product) => product.id === action.product.id);
-      if (itemIndex > -1) {
-        return state.map((product, index) =>
-          index === itemIndex
-            ? { ...product, quantity: product.quantity + 1 }
-            : product
-        );
-      }
-      return [...state, { ...action.product, quantity: 1 }];
-    case 'INCREMENT':
-      return state.map((product) =>
-        product.id === action.id
-          ? { ...product, quantity: Math.min(product.quantity + 1, action.maxQuantity) }
-          : product
-      );
-    case 'DECREMENT':
-      return state.map((product) =>
-        product.id === action.id
-          ? { ...product, quantity: Math.max(product.quantity - 1, 1) }
-          : product
-      );
-    case 'DELETE':
-      return state.filter((product) => product.id !== action.id);
-    case 'CLEAR':
-      return [];
-    default:
-      throw new Error(`Unknown action: ${action.type}`);
-  }
-};
+export const CartContext = createContext()
 
 export const CartProvider = ({ children }) => {
-  const [cart, dispatch] = useReducer(cartReducer, []);
+  const [cartItems, setCartItems] = useState(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [])
+
+  const addToCart = (item) => {
+    const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
+
+    if (isItemInCart) {
+      setCartItems(
+        cartItems.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        )
+      );
+    } else {
+      setCartItems([...cartItems, { ...item, quantity: 1 }]);
+    }
+  };
+
+  const removeFromCart = (item) => {
+    const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
+
+    if (isItemInCart.quantity === 1) {
+      setCartItems(cartItems.filter((cartItem) => cartItem.id !== item.id));
+    } else {
+      setCartItems(
+        cartItems.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity - 1 }
+            : cartItem
+        )
+      );
+    }
+  };
+
+  const deleteItem = (productId) => {
+    setCartItems(cartItems.filter(item => item.id !== productId));
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  const tPrice = (item) => {
+    const price = item.current_price && 
+                  item.current_price[0] && 
+                  item.current_price[0]["NGN"] && 
+                  item.current_price[0]["NGN"][0];
+    return (price || 0) * (item.quantity || 1);
+  };
+  
+
+  const getCartTotal = () => {
+    return cartItems.reduce((total, item) => {
+      const price = item.current_price && 
+                    item.current_price[0] && 
+                    item.current_price[0]["NGN"] && 
+                    item.current_price[0]["NGN"][0];
+      return total + (price || 0) * (item.quantity || 1);
+    }, 0);
+  };
+  
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  useEffect(() => {
+    const cartItems = localStorage.getItem("cartItems");
+    if (cartItems) {
+      setCartItems(JSON.parse(cartItems));
+    }
+  }, []);
 
   return (
-    <CartContext.Provider value={{ cart, dispatch }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        tPrice,
+        deleteItem,
+        clearCart,
+        getCartTotal,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
-};
-
-export const useCart = () => {
-  return useContext(CartContext);
 };
