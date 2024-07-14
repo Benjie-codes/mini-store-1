@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CartContext } from '../context/cartContext';
 import { ToastContainer, toast } from 'react-toastify';
+import { FaAngleRight, FaAngleLeft} from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 
 const Products = () => {
@@ -77,7 +78,7 @@ const Products = () => {
           Products
         </h2>
         <div className="flex flex-wrap justify-center mb-10">
-          <div className="grid md:grid-cols-3 grid-col gap-10 p-6">
+          <div className="grid md:grid-cols-3 grid-cols-2 gap-10 p-6">
             {Array.isArray(products) ? currentProducts.map(product => (
               <div key={product.id} className="border p-4 rounded">
                 {product.photos && product.photos.url ? (
@@ -99,21 +100,28 @@ const Products = () => {
               </div>
             )) : <p>No products available</p>}
           </div>
-          <div className="flex justify-between mt-4">
-            <button 
-              onClick={handleClickPrev} 
-              className="bg-black text-white p-2 rounded"
-              disabled={currentPage === 1}
-            >
-              Previous
-            </button>
-            <button 
-              onClick={handleClickNext} 
-              className="bg-black text-white p-2 rounded"
-              disabled={indexOfLastProduct >= products.length}
-            >
-              Next
-            </button>
+          <div className="flex justify-between mt-4 items-center gap-5">
+            <div className='bg-black text-white flex items-center gap p-3 hover:cursor-pointer'>
+              <FaAngleLeft className='color-white text-xl'/>
+              <button 
+                onClick={handleClickPrev} 
+                className=""
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+            </div>
+            <div className='bg-black text-white flex items-center gap p-3 hover:cursor-pointer'>
+              <button 
+                onClick={handleClickNext} 
+                className=""
+                disabled={indexOfLastProduct >= products.length}
+              >
+                Next
+              </button>
+              <FaAngleRight className='color-white'/>
+            </div>
+            
           </div>
         </div>
       </section>

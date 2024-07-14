@@ -62,9 +62,9 @@ const Cart = () => {
                         +
                       </button>
                     </div>
-                    <div className="co">
-                      <p className="text-2xl font-bold">#{product?.current_price[0]?.["NGN"]}</p>
-                      <div className="align-right">
+                    <div className="">
+                      <p className="text-2xl font-bold flex justify-end">#{product?.current_price[0]?.["NGN"]}</p>
+                      <div className="flex justify-end">
                         <button
                           onClick={() => removeFromCart(product.id)}
                           className="bg-red-500 text-white p-2 rounded mt-2"
