@@ -54,7 +54,7 @@ export const CartProvider = ({ children }) => {
   };
   
 
-    const getCartTotal = () => {
+const getCartTotal = () => {
     return cartItems.reduce((total, item) => {
         const price = item.current_price && 
                     item.current_price[0] && 
@@ -62,7 +62,11 @@ export const CartProvider = ({ children }) => {
                     item.current_price[0]["NGN"][0];
         return total + (price || 0) * (item.quantity || 1);
     }, 0);
-    };
+};
+
+const getTotalQuantity = () => {
+    return cartItems.reduce((total, item) => total + (item.quantity || 0), 0);
+  };
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -81,6 +85,7 @@ export const CartProvider = ({ children }) => {
         cartItems,
         addToCart,
         removeFromCart,
+        getTotalQuantity,
         tPrice,
         deleteItem,
         clearCart,

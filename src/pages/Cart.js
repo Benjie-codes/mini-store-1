@@ -27,14 +27,14 @@ const Cart = () => {
                   {product.photos && product.photos.url ? (
                     <img src={`https://api.timbu.cloud/images/${product.photos.url}`} alt={product.name} className="w-2 rounded" />
                   ) : product.photos && product.photos[0] && product.photos[0].url ? (
-                    <img src={`https://api.timbu.cloud/images/${product.photos[0].url}`} alt={product.name} className="w-40 rounded" />
+                    <img src={`https://api.timbu.cloud/images/${product.photos[0].url}`} alt={product.name} className="w-40 md:w-40 rounded" />
                   ) : (
                     <p>No image available</p>
                   )}
-                  <div className=" grid-cols-3 grid ">
+                  <div className=" grid grid-cols md:grid-cols-3  ">
                     <div className="pl-4">
                       <h2 className="text-xl font-bold">{product.name}</h2>
-                      <p>{product.description}</p>
+                      {/* <p className="text-sm md:text-base">{product.description}</p> */}
                     </div>
                     <div className="mx-auto">
                       <button
@@ -69,7 +69,6 @@ const Cart = () => {
                       </div>
                     </div>
                   </div>
-                  
                 </div>
               ))}
               

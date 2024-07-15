@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaBars, FaTimes, FaShoppingCart, FaSearch } from 'react-icons/fa';
 import logo from '../assets/logo.jpg';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { CartContext } from '../context/cartContext';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -55,6 +56,8 @@ const Navbar = () => {
         }
     };
 
+    const { getTotalQuantity } = useContext(CartContext);
+
     return (
         <div>
             <header className="bg-white overflow-hidden">
@@ -95,7 +98,13 @@ const Navbar = () => {
                         <button onClick={toggleSearch} className="text-black focus:outline-none">
                             <FaSearch className="w-6 h-6" />
                         </button>
-                        <a href='/cart'><FaShoppingCart className="text-2xl cursor-pointer" /></a>
+                        <a href='/cart' className='flex items-center'><FaShoppingCart className="text-2xl cursor-pointer" />
+                            {getTotalQuantity() >= 0 && (
+                                <span className=" bg-red-500 ml-1 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                                    {getTotalQuantity()}
+                                </span>
+                            )}
+                        </a>
                     </div>
                 )}
                 </div>

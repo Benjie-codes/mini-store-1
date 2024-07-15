@@ -3,6 +3,7 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   theme: {
     extend: {
+      
       keyframes: {
         spin: {
           '0%': { transform: 'rotate(0deg)' },

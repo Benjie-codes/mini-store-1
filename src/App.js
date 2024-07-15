@@ -11,7 +11,7 @@ import { MantineProvider } from '@mantine/core';
 function App() {
 
   return (
-    <div>
+    <div className="font-montserrat">
       <MantineProvider>
         <Router>
           <div className="App">

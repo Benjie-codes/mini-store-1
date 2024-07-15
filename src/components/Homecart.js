@@ -1,52 +1,7 @@
-import React from "react";
-import itemImage1 from "../assets/item1.webp";
-import itemImage2 from "../assets/item2.webp";
-import itemImage3 from "../assets/item3.webp";
-import itemImage4 from "../assets/item4.webp";
-import itemImage5 from "../assets/item5.webp";
-import itemImage6 from "../assets/item6.webp";
-
+import React, { useContext, useState, useEffect } from 'react';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-const artworks = [
-  {
-    image: itemImage1,
-    title: "Awelewa",
-    artist: "Funmilayo Todimu Tejumola",
-    price: "#45,000 - #135,000",
-  },
-  {
-    image: itemImage2,
-    title: "Green Tree",
-    artist: "Elizz Hezibah",
-    price: "#49,000 - #135,000",
-  }, //as him be chill mentor
-  {
-    image: itemImage3,
-    title: "Super Power",
-    artist: "Emmanuel Akibah",
-    price: "#45,000 - #135,000",
-  }, //Him dey para scatter
-  {
-    image: itemImage4,
-    title: "Blossom",
-    artist: "Emmanuel Akibahl",
-    price: "#45,000 - #135,000",
-  },
-  {
-    image: itemImage5,
-    title: "Black Woman",
-    artist: "Emmanuel Akibah",
-    price: "#45,000 - #135,000",
-  },
-  {
-    image: itemImage6,
-    title: "Sunrise",
-    artist: "Emmanuel Akibah",
-    price: "#45,000 - #135,000",
-  }, //chill designer
-];
+import { CartContext } from '../context/cartContext';
 
 const notify = () =>
   toast.success("Product added to cart!", {
@@ -61,6 +16,30 @@ const notify = () =>
   });
 
 const Homecart = () => {
+  const [products, setProducts] = useState([]);
+  const { addToCart } = useContext(CartContext);
+
+const createAddToCartAction = (addToCart, ...additionalActions) => (product) => {
+    addToCart(product);
+    additionalActions.forEach(action => action(product));
+};
+
+const AddToCartAndNotify = createAddToCartAction(addToCart, notify);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('https://api.timbu.cloud/products?organization_id=406671a1a9794d0cacd2c4301838acac&Appid=4YTRPOKYZR0ZMM3&Apikey=ec8e01823c644d31ad08ebfc14d15c5c20240713022144062243');
+        const data = await response.json();
+        setProducts(data.items.slice(0, 10));
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <div>
       <section className="py-12 text-center overflow-hidden mb-10">
@@ -69,27 +48,32 @@ const Homecart = () => {
         </h2>
         <div className="flex flex-wrap justify-center mb-10">
           <div className="grid md:grid-cols-2 grid-col">
-            {artworks.map((art, index) => (
+            {products.map(product => (
               <div
-                key={index}
+                key={product.id}
                 className="flex flex-col items-center w-90 p-4 m-4 bg-white shadow-md rounded"
               >
-                <img src={art.image} alt={art.title} className="mb-4 rounded" />
-                <div className="w-full flex justify-between items-center">
-                  <div className="text-left">
-                    <h3 className="text-4xl font-bold mb-2">{art.title}</h3>
-                    <p>{art.artist}</p>
-                    <p>{art.price}</p>
-                  </div>
-                  <div className="">
-                    <button
-                      onClick={notify}
-                      className="mt-4 bg-black text-white px-6 py-4  hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black "
-                    >
-                      Add To Cart
-                    </button>
+                <div className='w-30'>
+                  <img src={`https://api.timbu.cloud/images/${product.photos[0]?.url}`} alt={product.name} className="mb-4 w-50 rounded" />
+                </div>
+                <div className='mx-5 '>
+                  <div className="grid grid-cols-12 items-center">
+                    <div className="text-left col-span-9">
+                      <h3 className="text-4xl font-bold mb-2">{product.name}</h3>
+                      <p>{product.description}</p>
+                      <p className='text-xl'>₦{product?.current_price[0]?.["NGN"]?.[0]}</p>
+                    </div>
+                    <div className="flex justify-end col-span-3">
+                      <button
+                        onClick={() => AddToCartAndNotify(product)}
+                        className="mt-4 bg-black text-white px-6 py-4  hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black "
+                      >
+                        Add To Cart
+                      </button>
+                    </div>
                   </div>
                 </div>
+                
               </div>
             ))}
           </div>
