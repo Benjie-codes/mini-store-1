@@ -11,7 +11,13 @@ import 'react-toastify/dist/ReactToastify.css';
 function Checkout() {
     const [currentStep] = useState(2);
     const order = () => toast('Thanks for shopping with us!');
-    const {cartItems, tPrice, getCartTotal} = useContext(CartContext);
+    const {cartItems, tPrice, getCartTotal, clearCart} = useContext(CartContext);
+
+    const createOrderAction = (clearCart, ...additionalActions) => (product) => {
+        clearCart(product);
+        additionalActions.forEach(action => action(product));
+    };
+    const orderAndNotify = createOrderAction(clearCart, order);
 
   return (
     <div>
@@ -111,7 +117,7 @@ function Checkout() {
                             <input type="text" className="w-full p-2 border" />
                         </div>
                         </div>
-                        <button onClick={order} className="mt-4 w-full bg-black text-white py-2 hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black ">PLACE ORDER</button>
+                        <button onClick={() => orderAndNotify()} className="mt-4 w-full bg-black text-white py-2 hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black ">PLACE ORDER</button>
                     </div>
                 </div>
             </div>
