@@ -24,15 +24,18 @@ const Cart = () => {
             <div className="">
               {cartItems.map((product, index) => (
                 <div key={index} className="flex p-4 rounded items-center">
-                  {product.photos && product.photos.url ? (
-                    <img src={`https://api.timbu.cloud/images/${product.photos.url}`} alt={product.name} className="w-2 rounded" />
-                  ) : product.photos && product.photos[0] && product.photos[0].url ? (
-                    <img src={`https://api.timbu.cloud/images/${product.photos[0].url}`} alt={product.name} className="w-20 md:w-40 rounded" />
-                  ) : (
-                    <p>No image available</p>
-                  )}
-                  <div className=" grid grid-cols-12  ">
-                    <div className="pl-4 col-span-12 md:col-span-8">
+                  <div className="w-2/12">
+                    {product.photos && product.photos.url ? (
+                        <img src={`https://api.timbu.cloud/images/${product.photos.url}`} alt={product.name} className=" rounded" />
+                      ) : product.photos && product.photos[0] && product.photos[0].url ? (
+                        <img src={`https://api.timbu.cloud/images/${product.photos[0].url}`} alt={product.name} className="md:w-40 rounded" />
+                      ) : (
+                      <p>No image available</p>
+                    )}
+                  </div>
+                  
+                  <div className="w-10/12 grid grid-cols-12">
+                    <div className="pl-4 md:pl-0 col-span-12 md:col-span-8 mb-3 md:mb-0">
                       <h2 className="text-xl font-bold">{product.name}</h2>
                     </div>
                     <div className="col-span-12 md:col-span-4">
@@ -57,7 +60,7 @@ const Cart = () => {
                             </button>
                           </div>
                           <div className="col-span-6">
-                            <p className="text-2xl font-bold flex justify-end">#{tPrice(product)}</p>
+                            <p className="text-2xl font-bold flex justify-end">₦{tPrice(product)}</p>
                             <div className="flex justify-end">
                               <button
                                 onClick={() => {
