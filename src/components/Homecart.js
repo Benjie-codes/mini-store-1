@@ -53,20 +53,20 @@ const AddToCartAndNotify = createAddToCartAction(addToCart, notify);
                 key={product.id}
                 className="flex flex-col items-center w-90 p-4 m-4 bg-white shadow-md rounded"
               >
-                <div className='w-30'>
-                  <img src={`https://api.timbu.cloud/images/${product.photos[0]?.url}`} alt={product.name} className="mb-4 w-50 rounded" />
+                <div className='w-full flex justify-center'>
+                  <img src={`https://api.timbu.cloud/images/${product.photos[0]?.url}`} alt={product.name} className="mb-4 object-contain w-5/6  rounded" />
                 </div>
-                <div className='mx-5 '>
-                  <div className="grid grid-cols-12 items-center">
+                <div className='mx-2 '>
+                  <div className="grid grid-cols-12 items-start md:items-center gap-2">
                     <div className="text-left col-span-9">
-                      <h3 className="text-4xl font-bold mb-2">{product.name}</h3>
-                      <p>{product.description}</p>
-                      <p className='text-xl'>₦{product?.current_price[0]?.["NGN"]?.[0]}</p>
+                      <h3 className="text-xl md:text-2xl font-bold mb-2">{product.name}</h3>
+                      <p className='text-sm md:text-base'>{product.description}</p>
+                      <p className='text-xl font-bold font-sans'>₦{product?.current_price[0]?.["NGN"]?.[0]}</p>
                     </div>
                     <div className="flex justify-end col-span-3">
                       <button
                         onClick={() => AddToCartAndNotify(product)}
-                        className="mt-4 bg-black text-white px-6 py-4  hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black "
+                        className="mt-4 bg-black text-white px-6 py-4 text-sm md:text-base  hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black "
                       >
                         Add To Cart
                       </button>
@@ -79,7 +79,7 @@ const AddToCartAndNotify = createAddToCartAction(addToCart, notify);
           </div>
         </div>
         <a
-          href="/products-page"
+          href="/products"
           className="px-10 py-5 bg-black text-white hover:bg-white hover:text-black hover:border-2 hover:border-black  transition duration-500 ease-in-out"
         >
           View All
