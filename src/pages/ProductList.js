@@ -1,6 +1,6 @@
 import { CartContext } from '../context/cartContext';
 import React, { useContext, useState, useEffect } from 'react';
-import { Card, Image, Text, Group, Container, Title, Badge, Button } from '@mantine/core';
+import { Card, Image, Text, Group, Container, Badge, Button } from '@mantine/core';
 import Loader from '../components/Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -29,7 +29,7 @@ const ProductList = () => {
     const [isEmpty, setIsEmpty] = useState(false);
     const [isError, setIsError] = useState(false);
     const [page, setPage] = useState(1);
-    const { cartItems, addToCart } = useContext(CartContext)
+    const { addToCart } = useContext(CartContext)
 
     useEffect(() => {
         const params = {
@@ -75,10 +75,22 @@ const ProductList = () => {
         });
     };
     
-    const handleMultipleActions = () => {
-        addToCart(products);
-        notify();
+    // const handleMultipleActions = (product) => {
+    //     addToCart(product);
+    //     notify();
+    // };
+
+    
+    const createAddToCartAction = (addToCart, ...additionalActions) => (product) => {
+        addToCart(product);
+        additionalActions.forEach(action => action(product));
     };
+    const AddToCartAndNotify = createAddToCartAction(addToCart, notify);
+
+    // const addToCartAndNotify = createAddToCartAction(addToCart, notify);
+      
+    // <button onClick={() => addToCartAndNotify(product)}>Add to Cart</button>
+      
 
     return (
         <Container>
@@ -101,7 +113,7 @@ const ProductList = () => {
                                         </Badge>
                                     </Group>
                                     <div className='flex justify-center'>
-                                        <button onClick={() => addToCart(product)} className="mt-4 w-full bg-black text-white px-4 py-2  hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black ">Add To Cart</button>
+                                        <button onClick={() => AddToCartAndNotify(product)} className="mt-4 w-full bg-black text-white px-4 py-2  hover:bg-white hover:text-black transition duration-500 ease-in-out hover:border-2 hover:border-black ">Add To Cart</button>
                                     </div>
                                     
                                     {/* <Text size="sm">{product?.description}</Text> */}

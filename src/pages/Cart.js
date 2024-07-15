@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { RiVisaLine } from "react-icons/ri";
 import { FaGooglePay } from "react-icons/fa6";
@@ -7,6 +7,8 @@ import { CartContext } from "../context/cartContext";
 
 const Cart = () => {
   const { cartItems, addToCart, removeFromCart, clearCart, deleteItem, tPrice, getCartTotal } = useContext(CartContext)
+
+  console.log(cartItems)
 
   // console.log((cartItems.current_price[0]?.["NGN"] * cartItems.quantity).toFixed(2))
 

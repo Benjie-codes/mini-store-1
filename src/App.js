@@ -7,14 +7,8 @@ import Checkout from "./pages/Checkout";
 import Error from "./pages/Error";
 import ProductList from "./pages/ProductList";
 import { MantineProvider } from '@mantine/core';
-import React, { useState } from 'react';
 
 function App() {
-  const [cart, setCart] = useState([]);
-
-  const addToCart = (product) => {
-    setCart([...cart, product]);
-  };
 
   return (
     <div>

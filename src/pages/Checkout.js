@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { RiVisaLine } from "react-icons/ri";
 import { FaGooglePay } from "react-icons/fa6";
 import { FaCheck } from 'react-icons/fa';
 import ProgressBar from '../components/Progressbar';
+import { CartContext } from '../context/cartContext';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Checkout() {
     const [currentStep] = useState(2);
     const order = () => toast('Thanks for shopping with us!');
+    const {cartItems, tPrice, getCartTotal} = useContext(CartContext);
 
   return (
     <div>
@@ -68,14 +70,16 @@ function Checkout() {
                 <div>
                     <div className="bg-gray-100 p-4 rounded">
                         <h3 className="text-lg font-semibold mb-4">YOUR ORDER</h3>
-                        <div className="border-b pb-4 mb-4">
-                        <p>Blossom</p>
-                        <p>Emmanuel Abikah</p>
-                        <p>₦45,000 - ₦135,000</p>
-                        </div>
+                        { cartItems.map((product, index) => (
+                            <div key={index} className="border-b pb-4 mb-4">
+                                <p>{product.name}</p>
+                                <p>₦{tPrice(product)}</p>
+                            </div> 
+                        ))}
+                        
                         <div className="border-b pb-4 mb-4">
                         <p>SUBTOTAL</p>
-                        <p>₦130,000</p>
+                        <p>₦{getCartTotal()}</p>
                         </div>
                         <div className="border-b pb-4 mb-4">
                         <p>Shipping</p>
@@ -87,7 +91,7 @@ function Checkout() {
                         </div>
                         <div className="border-b pb-4 mb-4">
                         <p>Total</p>
-                        <p>₦130,000</p>
+                        <p>₦{getCartTotal()}</p>
                         </div>
                         <div className="flex items-center mb-4">
                         <RiVisaLine alt="Visa" className="text-6xl mr-2" />

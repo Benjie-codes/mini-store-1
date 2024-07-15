@@ -37,12 +37,12 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const deleteItem = (productId) => {
-    setCartItems(cartItems.filter(item => item.id !== productId));
-  };
-
   const clearCart = () => {
     setCartItems([]);
+  };
+
+  const deleteItem = (productId) => {
+    setCartItems(cartItems.filter(item => item.id !== productId));
   };
 
   const tPrice = (item) => {
@@ -54,16 +54,15 @@ export const CartProvider = ({ children }) => {
   };
   
 
-  const getCartTotal = () => {
+    const getCartTotal = () => {
     return cartItems.reduce((total, item) => {
-      const price = item.current_price && 
+        const price = item.current_price && 
                     item.current_price[0] && 
                     item.current_price[0]["NGN"] && 
                     item.current_price[0]["NGN"][0];
-      return total + (price || 0) * (item.quantity || 1);
+        return total + (price || 0) * (item.quantity || 1);
     }, 0);
-  };
-  
+    };
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
