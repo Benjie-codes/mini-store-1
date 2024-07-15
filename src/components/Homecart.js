@@ -57,7 +57,7 @@ const AddToCartAndNotify = createAddToCartAction(addToCart, notify);
                   <img src={`https://api.timbu.cloud/images/${product.photos[0]?.url}`} alt={product.name} className="mb-4 object-contain w-5/6  rounded" />
                 </div>
                 <div className='mx-2 '>
-                  <div className="grid grid-cols-12 items-start md:items-center gap-2">
+                  <div className="grid grid-cols-12 items-start gap-2">
                     <div className="text-left col-span-9">
                       <h3 className="text-xl md:text-2xl font-bold mb-2">{product.name}</h3>
                       <p className='text-sm md:text-base'>{product.description}</p>

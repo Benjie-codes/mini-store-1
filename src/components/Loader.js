@@ -1,10 +1,11 @@
 import React from 'react'
+import loaderImg from '../assets/loader.png'
 
 const Loader = () => {
   return (
     <div>
         <div className="flex justify-center items-center h-screen">
-            <div className="loader ease-linear rounded-full border-4 border-t-4 border-black h-12 w-12"></div>
+            <img src={loaderImg} alt="loader" className='transform transiton-all duration-1000 rotate-360 h-20 w-20 animate-spin' />
         </div>
     </div>
   )
