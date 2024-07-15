@@ -27,48 +27,52 @@ const Cart = () => {
                   {product.photos && product.photos.url ? (
                     <img src={`https://api.timbu.cloud/images/${product.photos.url}`} alt={product.name} className="w-2 rounded" />
                   ) : product.photos && product.photos[0] && product.photos[0].url ? (
-                    <img src={`https://api.timbu.cloud/images/${product.photos[0].url}`} alt={product.name} className="w-40 md:w-40 rounded" />
+                    <img src={`https://api.timbu.cloud/images/${product.photos[0].url}`} alt={product.name} className="w-20 md:w-40 rounded" />
                   ) : (
                     <p>No image available</p>
                   )}
-                  <div className=" grid grid-cols md:grid-cols-3  ">
-                    <div className="pl-4">
+                  <div className=" grid grid-cols-12  ">
+                    <div className="pl-4 col-span-12 md:col-span-8">
                       <h2 className="text-xl font-bold">{product.name}</h2>
-                      {/* <p className="text-sm md:text-base">{product.description}</p> */}
                     </div>
-                    <div className="mx-auto">
-                      <button
-                        onClick={() => {
-                          removeFromCart(product)
-                        }}
-                        className="bg-gray-300 text-black p-2 rounded mr-2"
-                      >
-                        -
-                      </button>
-                      <span>{product.quantity}</span>
-                      <button
-                        onClick={() => {
-                          addToCart(product)
-                        }}
-                        className="bg-gray-300 text-black p-2 rounded ml-2"
-                      >
-                        +
-                      </button>
-                    </div>
-                    <div className="">
-                      <p className="text-2xl font-bold flex justify-end">#{tPrice(product)}</p>
-                      <div className="flex justify-end">
-                        <button
-                          onClick={() => {
-                            deleteItem(product.id)
-                          }}
-                          className="bg-red-500 text-white p-2 rounded mt-2"
-                        >
-                          Remove
-                        </button>
+                    <div className="col-span-12 md:col-span-4">
+                      <div grid className="grid grid-cols-12">
+                          <div className="col-span-6 ml-4">
+                            <button
+                              onClick={() => {
+                                removeFromCart(product)
+                              }}
+                              className="bg-gray-300 text-black p-2 rounded mr-2"
+                            >
+                              -
+                            </button>
+                            <span>{product.quantity}</span>
+                            <button
+                              onClick={() => {
+                                addToCart(product)
+                              }}
+                              className="bg-gray-300 text-black p-2 rounded ml-2"
+                            >
+                              +
+                            </button>
+                          </div>
+                          <div className="col-span-6">
+                            <p className="text-2xl font-bold flex justify-end">#{tPrice(product)}</p>
+                            <div className="flex justify-end">
+                              <button
+                                onClick={() => {
+                                  deleteItem(product.id)
+                                }}
+                                className="bg-red-500 text-white p-2 rounded mt-2"
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                    
                 </div>
               ))}
               
